@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url("./fonts/OpenSans-Regular.ttf");
+}
+@font-face {
+    font-family: 'Open Sans Bold';
+    src: url("./fonts/OpenSans-Bold.ttf");
+}
+@font-face {
+    font-family: 'Open Sans Light';
+    src: url("./fonts/OpenSans-Light.ttf");
+}
+@font-face {
+    font-family: 'Open Sans Semibold';
+    src: url("./fonts/OpenSans-SemiBold.ttf");
+}
+body{
+    font-family: 'Open Sans';
+}
+.left-section{
+    background: #FFF1F1;
+    padding: 0 80px;
+    min-height: 100vh;
+    position: relative;
+}
+.left-section img{
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+    max-width: 192px;
+}
+.front-content{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 40%;
+    top: 40%;
+    min-width: 505px;
+    background: url(../images/ellipse.png) no-repeat top left;
+    background-size: contain;
+    padding-top: 80px;
+}
+.front-content h1{
+    font-family: 'Open Sans Light';
+    color: #000;
+    font-size: 52px;
+}
+.front-content h1 b{
+    font-family: 'Open Sans Bold';
+}
+.right-section{
+    position: relative;
+}
+.login-form{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    min-width: 330px;
+}
+.login-form h2{
+    font-family: 'Open Sans Semibold';
+    font-size: 24px;
+    color: #000;
+    margin: 10px 0 20px;
+}
+.login-form > img{
+    margin-bottom: 70px;
+}
