@@ -1,194 +1,200 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Assignment-frontend</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
-<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table-locale-all.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/export/bootstrap-table-export.min.js"></script>
-<style>
-    .select,
-    #locale {
-      width: 100%;
-    }
-    .like {
-      margin-right: 10px;
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assignment-frontend</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tablednd@1.0.5/dist/jquery.tablednd.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js"></script>
+
 </head>
 
 <body>
-    <div id="toolbar">
-        <button id="remove" class="btn btn-danger" disabled>
-          <i class="fa fa-trash"></i> Delete
-        </button>
-      </div>
-      <table
-        id="table"
-        data-toolbar="#toolbar"
-        data-search="true"
-        data-show-refresh="true"
-        data-show-toggle="true"
-        data-show-fullscreen="true"
-        data-show-columns="true"
-        data-show-columns-toggle-all="true"
-        data-detail-view="true"
-        data-show-export="true"
-        data-click-to-select="true"
-        data-detail-formatter="detailFormatter"
-        data-minimum-count-columns="2"
-        data-show-pagination-switch="true"
-        data-pagination="true"
-        data-id-field="id"
-        data-page-list="[10, 25, 50, 100, all]"
-        data-show-footer="true"
-        data-side-pagination="server"
-        data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
-        data-response-handler="responseHandler">
-      </table>
-      
+    <!-- https://examples.bootstrap-table.com/#view-source
+    https://dummyjson.com/users -->
+    <section class="container-fluid p-0 dashboard">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-light bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <img src="./images/logo.png" alt="Logo" class="img-fluid" />
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-md-12">
+                <div class="table-data">
+                    <div class="container-fluid">
+                        <div class="table-top">
+                            <p>Lorem ipsum is a dummy text</p>
+                            <div id="toolbar">
+                                <button id="remove" class="btn btn-danger" disabled>
+                                    <i class="fa fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="table" data-toggle="table" data-url="http://localhost:3000/data"
+                                data-click-to-select="true" data-minimum-count-columns="2" data-id-field="id"
+                                data-response-handler="responseHandler" data-reorderable-rows="true" class="table">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="toast-msg">
+                    <div class="alert alert-success alert-dismissible alert-login d-none">
+                        Login Successfully
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    <div class="alert alert-success alert-dismissible alert-delete d-none">
+                        Deleted Successfully
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showNotification(ntype) {
+            $('.alert-'+ntype).removeClass('d-none');
+            setTimeout(() => {
+                $('.alert-'+ntype).addClass('d-none');
+            }, 3000);
+        }
+
+        var $table = $('#table')
+        var $remove = $('#remove')
+        var selections = []
+
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'), function (row) {
+                return row.id
+            })
+        }
+
+        function responseHandler(res) {
+            $.each(res.rows, function (i, row) {
+                row.state = $.inArray(row.id, selections) !== -1
+            })
+            return res
+        }
+
+        function detailFormatter(index, row) {
+            var html = []
+            $.each(row, function (key, value) {
+                html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+            })
+            return html.join('')
+        }
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="remove" href="javascript:void(0)" title="Remove">',
+                '<img src="./images/delete.svg" class="img-fluid" />',
+                '</a>'
+            ].join('')
+        }
+
+        window.operateEvents = {
+            'click .remove': function (e, value, row, index) {
+                $table.bootstrapTable('remove', {
+                    field: 'id',
+                    values: [row.id]
+                })
+                showNotification('delete');
+            }
+        }
+
+        function initTable() {
+            $table.bootstrapTable('destroy').bootstrapTable({
+                height: 'auto',
+                locale: $('#locale').val(),
+                columns: [
+                    [{
+                            field: 'state',
+                            checkbox: true,
+                            rowspan: 2,
+                            align: 'left',
+                            valign: 'middle'
+                        },
+                        {
+                            field: 'username',
+                            title: 'User Name',
+                            sortable: true,
+                            align: 'left'
+                        }, {
+                            field: 'phone',
+                            title: 'Phone Number',
+                            sortable: true,
+                            align: 'left'
+                        }, {
+                            field: 'email',
+                            title: 'Email ID',
+                            sortable: true,
+                            align: 'left'
+                        }, {
+                            field: 'operate',
+                            title: 'Options',
+                            align: 'left',
+                            clickToSelect: false,
+                            events: window.operateEvents,
+                            formatter: operateFormatter
+                        }
+                    ],
+
+                    []
+                ]
+            })
+
+            $table.on('check.bs.table uncheck.bs.table ' +
+                'check-all.bs.table uncheck-all.bs.table',
+                function () {
+                    $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+
+                    // save your data, here just save the current page
+                    selections = getIdSelections()
+                    // push or splice the selections if you want to save all data selections
+                })
+
+            $table.on('all.bs.table', function (e, name, args) {
+                console.log(name, args)
+            })
+
+            $remove.click(function () {
+                var ids = getIdSelections()
+                $table.bootstrapTable('remove', {
+                    field: 'id',
+                    values: ids
+                })
+                $remove.prop('disabled', true);
+                showNotification('delete');
+            })
+        }
+
+        $(function () {
+            initTable()
+
+            $('#locale').change(initTable)
+        })
+
+        $(document).ready(function(){
+            showNotification('login');
+        })
+    </script>
+
 </body>
-<script>
-    // https://examples.bootstrap-table.com/#view-source
-    var $table = $('#table')
-    var $remove = $('#remove')
-    var selections = []
-  
-    function getIdSelections() {
-      return $.map($table.bootstrapTable('getSelections'), function (row) {
-        return row.id
-      })
-    }
-  
-    function responseHandler(res) {
-      $.each(res.rows, function (i, row) {
-        row.state = $.inArray(row.id, selections) !== -1
-      })
-      return res
-    }
-  
-    function detailFormatter(index, row) {
-      var html = []
-      $.each(row, function (key, value) {
-        html.push('<p><b>' + key + ':</b> ' + value + '</p>')
-      })
-      return html.join('')
-    }
-  
-    function operateFormatter(value, row, index) {
-      return [
-        '<a class="like" href="javascript:void(0)" title="Like">',
-        '<i class="fa fa-heart"></i>',
-        '</a>  ',
-        '<a class="remove" href="javascript:void(0)" title="Remove">',
-        '<i class="fa fa-trash"></i>',
-        '</a>'
-      ].join('')
-    }
-  
-    window.operateEvents = {
-      'click .like': function (e, value, row, index) {
-        alert('You click like action, row: ' + JSON.stringify(row))
-      },
-      'click .remove': function (e, value, row, index) {
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: [row.id]
-        })
-      }
-    }
-  
-    function totalTextFormatter(data) {
-      return 'Total'
-    }
-  
-    function totalNameFormatter(data) {
-      return data.length
-    }
-  
-    function totalPriceFormatter(data) {
-      var field = this.field
-      return '$' + data.map(function (row) {
-        return +row[field].substring(1)
-      }).reduce(function (sum, i) {
-        return sum + i
-      }, 0)
-    }
-  
-    function initTable() {
-      $table.bootstrapTable('destroy').bootstrapTable({
-        height: 550,
-        locale: $('#locale').val(),
-        columns: [
-          [{
-            field: 'state',
-            checkbox: true,
-            rowspan: 2,
-            align: 'center',
-            valign: 'middle'
-          }, {
-            title: 'Item ID',
-            field: 'id',
-            rowspan: 2,
-            align: 'center',
-            valign: 'middle',
-            sortable: true,
-            footerFormatter: totalTextFormatter
-          }, {
-            title: 'Item Detail',
-            colspan: 3,
-            align: 'center'
-          }],
-          [{
-            field: 'name',
-            title: 'Item Name',
-            sortable: true,
-            footerFormatter: totalNameFormatter,
-            align: 'center'
-          }, {
-            field: 'price',
-            title: 'Item Price',
-            sortable: true,
-            align: 'center',
-            footerFormatter: totalPriceFormatter
-          }, {
-            field: 'operate',
-            title: 'Item Operate',
-            align: 'center',
-            clickToSelect: false,
-            events: window.operateEvents,
-            formatter: operateFormatter
-          }]
-        ]
-      })
-      $table.on('check.bs.table uncheck.bs.table ' +
-        'check-all.bs.table uncheck-all.bs.table',
-      function () {
-        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
-  
-        // save your data, here just save the current page
-        selections = getIdSelections()
-        // push or splice the selections if you want to save all data selections
-      })
-      $table.on('all.bs.table', function (e, name, args) {
-        console.log(name, args)
-      })
-      $remove.click(function () {
-        var ids = getIdSelections()
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: ids
-        })
-        $remove.prop('disabled', true)
-      })
-    }
-  
-    $(function() {
-      initTable()
-  
-      $('#locale').change(initTable)
-    })
-  </script>
+
 </html>

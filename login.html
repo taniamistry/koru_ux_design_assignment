@@ -26,12 +26,12 @@
                     <div class="form">
                         <img src="images/icon.png" alt="lock-icon" class="img-fluid" />
                         <h2>Welcome back</h2>
-                        <form>
+                        <form method="post" action="#">
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="username" placeholder="Username" required>
                             </div>
                             <div class="mb-3 password">
-                                <input type="password" class="form-control noerror" id="password" placeholder="Password">
+                                <input type="password" class="form-control" id="password" placeholder="Password">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                     <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
@@ -50,7 +50,7 @@
                                 <a href="#">Forgot Passsword?</a>
                             </div>
                             <div class="mb-3">
-                                <input type="submit" class="btn btn-primary" value="Login">
+                                <button type="button" class="btn btn-primary submit">Login</button>
                                 <p>Don’t have an Account? <a href="#">Sign Up</a></p>
                             </div>
                         </form>
@@ -70,5 +70,47 @@
 </body>
 <script src="js/jquery-3.7.0.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.submit').click(function(e){
+            e.preventDefault();
+            var username = $('#username').val();
+            var password = $('#password').val();
 
+            if (username.length < 1) {
+                $('#username').addClass('error').removeClass('noerror');
+            } 
+            else if (password.length < 8) {
+                $('#password').addClass('error').removeClass('noerror');
+                $('.invalid-feedback').css('display','flex');
+            }
+            else{
+                window.location = "dashboard.html";
+            }
+        })
+
+        $("#username").on('keyup', function (e) {
+            if ($(this).val().length > 0) {
+                $(this).removeClass("error").addClass("noerror");
+            }
+            else{
+                $(this).addClass("error").removeClass("noerror");
+            }
+        });
+        $("#password").on('keyup', function (e) {
+            var password = $(this).val();
+            var regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+            if (password.match(regexp)) {
+                $(this).removeClass("error").addClass("noerror");
+                $('.login-form .password .bi-check-circle').css('display','block');
+                $('.invalid-feedback').css('display','none');
+            }
+            else{
+                $(this).addClass("error").removeClass("noerror");
+                $('.login-form .password .bi-check-circle').css('display','none');
+                $('.invalid-feedback').css('display','flex');
+            }
+        });
+    })
+</script>
 </html>

@@ -30,7 +30,7 @@ body {
     display: none;
 }
 
-.login-page{
+.login-page, .dashboard{
     overflow-x: hidden;
 }
 
@@ -113,7 +113,7 @@ body {
     background-position: 12px;
 }
 
-#password.error {
+#username.error, #password.error  {
     border: 1px solid #FC695C;
 }
 
@@ -130,6 +130,7 @@ body {
     position: absolute;
     right: 12px;
     top: 12px;
+    display: none;
 }
 
 .login-form .password a {
@@ -165,7 +166,7 @@ body {
     font-style: italic;
 }
 
-.login-form input[type="submit"] {
+.login-form .submit {
     background: #D94E3B;
     border-color: #D94E3B;
     width: 100%;
@@ -196,6 +197,7 @@ body {
     font-weight: 400;
     display: flex;
     align-items: center;
+    display: none;
 }
 .login-form .invalid-feedback p{
     margin: 5px 0;
@@ -203,6 +205,123 @@ body {
 .login-form .invalid-feedback svg{
     width: 50px;
 }
+.dashboard{
+    background: #fbfbfb;
+    min-height: 100vh;
+}
+.dashboard .navbar.bg-light{
+    background: #FFFFFF !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    max-height: 48px;
+    padding: 0;
+}
+.dashboard .navbar-brand img{
+    max-width: 112px;
+    vertical-align: top;
+}
+.table-top{
+    display: flex;
+    align-items: end;
+    margin: 20px 0;
+}
+.table-top p{
+    color: #000;
+    font-weight: 600;
+    font-size: 13px;
+    margin: 0;
+}
+.table-top #toolbar{
+    margin-left: auto;
+}
+.table-top #toolbar .btn{
+    background: #D94E3B;
+    border-color: #D94E3B;
+    font-size: 14px;
+    padding: 5px 13px;
+}
+.table-top #toolbar .btn.disabled, .table-top #toolbar .btn:disabled{
+    opacity: .5;
+}
+.table-data .bootstrap-table .fixed-table-container.fixed-height .table thead th {
+    color: #737373;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid #D1D1D1;
+}
+.table-data .bootstrap-table .fixed-table-container .table td{
+    color: #000000;
+    font-size: 11px;
+    font-weight: 400;
+    border: 1px solid #D1D1D1;
+    padding: 6px 8px;
+}
+.table-data .bootstrap-table .fixed-table-container .table .bs-checkbox label {
+    height: 12px;
+    vertical-align: bottom;
+}
+.table-data .table-hover>tbody>tr:hover {
+    background-color: #FFF2F2;
+}
+a.remove{
+    display: inline-block;
+    border: 1px solid #BABABA;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    text-align: center;
+}
+.table-data .bootstrap-table .fixed-table-container .table thead th .th-inner {
+    padding: 6px 8px !important;
+}
+.table-data .bootstrap-table .fixed-table-container .table thead th:last-child .th-inner, .table-data .bootstrap-table .fixed-table-container .table td:last-child{
+    text-align: right !important;
+}
+.table-data .bootstrap-table .fixed-table-container .table thead th:last-child .th-inner{
+    background: url('../images/exclamatory.svg') no-repeat;
+    padding-right: 30px !important;
+    background-position: 97%;
+}
+.table-data .bootstrap-table .fixed-table-container.fixed-height:not(.has-footer){
+    border: none;
+    padding-bottom: 0 !important;
+}
+.table-data .bootstrap-table .fixed-table-container .table tr.no-records-found td:last-child{
+    text-align: center !important;
+}
+.table-data tr.selected{
+    background: #FFDADA;
+}
+.toast-msg {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+}
+.toast-msg .alert-success{
+    display: inline-block;
+    background: #5CB85C url('../images/check-toast.svg') no-repeat;
+    background-position: 10px 50%;
+    border-color: #5CB85C;
+    color: #fff;
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 45px;
+}
+.toast-msg .alert-success button{
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    opacity: 1;
+    padding: 0px;
+    color: #4ef14d;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background-size: 50%;
+    transform: translate(-50%,-50%);
+    left: 90%;
+    top: 50%;
+}
+/* Responsive CSS */
 @media screen and (min-width: 992px) and (max-width: 1199px) {
     .front-content {
         left: 50%;
