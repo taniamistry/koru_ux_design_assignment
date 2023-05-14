@@ -1,0 +1,27 @@
+{
+  "data": [{
+      "id": "1",
+      "username": "Dianne Johnson",
+      "phone": "+7(123)029-76-47",
+      "email": "dianne.russell@gmail.com"
+    },
+    {
+      "id": "2",
+      "username": "Jacob Jones",
+      "phone": "+7(123)442-90-62",
+      "email": "jacob.jones@gmail.com"
+    },
+    {
+      "id": "3",
+      "username": "Wade Warren",
+      "phone": "+7(123)712-21-31",
+      "email": "wade.warren@gmail.com"
+    },
+    {
+      "id": "4",
+      "username": "Bessie Cooper",
+      "phone": "+7(123)072-36-28",
+      "email": "bessie.cooper@gmail.com"
+    }
+  ]
+}
