@@ -19,5 +19,13 @@ Project Description:
 7. Used JSON Server as the dummy Backend API: http://localhost:3000/data
 
 How to Install and Run the Project
-1. Frontend: Clone the repository, enter to the folder named 'koru_ux_design_assignment' and checkout to the 'dev' branch
-2. Backend: Clone the repository, enter to the folder named 'assignment-backend' and checkout to the 'backend' branch > npm init > run 'npm run json:server'
+1. Backend: 
+> Clone the repository on your local system as assignment-backend
+> Enter to the folder named 'assignment-backend' and checkout to the 'backend'
+> Run 'npm i' 
+> Run 'npm run json:server'
+
+2. Frontend: 
+> Clone the repository on your local system
+> Enter to the folder named 'koru_ux_design_assignment' and checkout to the 'dev' branch
+> Open login.html on your chrome browser
