@@ -321,6 +321,59 @@ a.remove{
     left: 90%;
     top: 50%;
 }
+#sureDelete .modal-content {
+    border-radius: 0;
+    border: none;
+    box-shadow: 1px 1px 10px #b1b1b1;
+}
+#sureDelete .modal-body{
+    padding: 15px 0;
+}
+#sureDelete .modal-body .modal-left{
+    background: #FC695C;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#sureDelete .modal-body .modal-right{
+    padding-left: 70px;
+    padding-right: 10px;
+    text-align: right;
+}
+#sureDelete .modal-body .modal-right p{
+    font-weight: 700;
+    font-size: 13px;
+    color: #000;
+    text-align: left;
+}
+#sureDelete .btn font{
+    vertical-align: top !important;
+}
+#sureDelete .btn.btn-primary{
+    font-size: 12px;
+    background: #D94E3B;
+    border-color: #D94E3B;
+    padding: 5px 15px;
+}
+#sureDelete .btn.btn-secondary{
+    border: 1px solid #A9A9A9;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    padding: 5px 15px;
+}
+#sureDelete .btn-close{
+    display: none;
+}
+.modal-backdrop.show{
+    display: none;
+}
 /* Responsive CSS */
 @media screen and (min-width: 992px) and (max-width: 1199px) {
     .front-content {

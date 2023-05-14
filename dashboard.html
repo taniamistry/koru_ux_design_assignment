@@ -7,20 +7,21 @@
     <title>Assignment-frontend</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css"
+        rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="js/jquery-3.7.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tablednd@1.0.5/dist/jquery.tablednd.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table-locale-all.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js"></script>
+    <script
+        src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js">
+    </script>
 
 </head>
 
 <body>
-    <!-- https://examples.bootstrap-table.com/#view-source
-    https://dummyjson.com/users -->
     <section class="container-fluid p-0 dashboard">
         <div class="row">
             <div class="col-md-12">
@@ -46,7 +47,7 @@
                         <div class="table-responsive">
                             <table id="table" data-toggle="table" data-url="http://localhost:3000/data"
                                 data-click-to-select="true" data-minimum-count-columns="2" data-id-field="id"
-                                data-response-handler="responseHandler" data-reorderable-rows="true" class="table">
+                                data-response-handler="responseHandler" data-use-row-attr-func="true" data-reorderable-rows="true" class="table">
                             </table>
                         </div>
                     </div>
@@ -66,12 +67,29 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="sureDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <button type="button" class="btn-close btn-close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="modal-left">
+                        <img src="./images/warning.svg" alt="warning" class="img-fluid" />
+                    </div>
+                    <div class="modal-right">
+                        <p>Are you sure want to delete?</p>
+                        <button type="button" class="btn btn-primary" id="btnDelteYes">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         function showNotification(ntype) {
-            $('.alert-'+ntype).removeClass('d-none');
+            $('.alert-' + ntype).removeClass('d-none');
             setTimeout(() => {
-                $('.alert-'+ntype).addClass('d-none');
+                $('.alert-' + ntype).addClass('d-none');
             }, 3000);
         }
 
@@ -174,14 +192,19 @@
             })
 
             $remove.click(function () {
-                var ids = getIdSelections()
+                $('#sureDelete').modal('show');
+            })
+
+            $('#btnDelteYes').click(function () {
+                var ids = getIdSelections();
                 $table.bootstrapTable('remove', {
                     field: 'id',
                     values: ids
                 })
                 $remove.prop('disabled', true);
                 showNotification('delete');
-            })
+                $('.btn-close-modal').click();
+            });
         }
 
         $(function () {
@@ -190,8 +213,9 @@
             $('#locale').change(initTable)
         })
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             showNotification('login');
+            
         })
     </script>
 
